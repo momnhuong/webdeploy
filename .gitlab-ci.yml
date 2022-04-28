@@ -5,7 +5,7 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Pages/HTML.gitlab-ci.yml
 
 # Full project: https://gitlab.com/pages/plain-html
-image: nhuongtrieu/app-nginx
+#image: nhuongtrieu/app-nginx
 pages:
   stage: deploy
   script:
@@ -20,7 +20,9 @@ pages:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 deploy:
   stage: deploy
+  image: nhuongtrieu/app-nginx
   script:
+    - ssh nhuongth@10.0.0.13
     - echo "deploy to DEV"  
   only:
     - main
