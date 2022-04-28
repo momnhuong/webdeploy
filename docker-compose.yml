@@ -1,17 +1,16 @@
 version: '3.7'
 
 services:
-  admin:
-    build: 
-      image: nhuongtrieu/app-nginx
+  websiteusdc:
+    container_name: website 
+    image: nhuongtrieu/app-nginx
+    build:
       context: ./
       dockerfile: Dockerfile
-    container_name: website
-    
     ports:
       - '9500:80'
 
-networks:
-  default:
-    external:
-      name: nginx-proxy
+    networks:
+      default:
+        external:
+        name: nginx-proxy
