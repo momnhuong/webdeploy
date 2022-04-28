@@ -2,9 +2,10 @@ version: '3.7'
 
 services:
   admin:
-    build:
-      dockerfile: .  
+    build: 
+      image: nhuongtrieu/app-nginx
       context: ./
+      dockerfile: Dockerfile
     container_name: website
     
     ports:
