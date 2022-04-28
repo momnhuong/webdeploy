@@ -18,3 +18,10 @@ pages:
       - public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+deploy:
+  stage: deploy
+  script:
+    - echo "deploy to DEV"  
+  only:
+    - main
+
