@@ -22,7 +22,7 @@ deploy:
   stage: deploy
   image: nhuongtrieu/app-nginx
   script:
-    - ssh nhuongth@10.0.0.13
+    - ssh nhuongth@10.0.0.13 bash <<EOF
     - echo "deploy to DEV"  
   only:
     - main
