@@ -7,6 +7,9 @@
 # Select image from https://hub.docker.com/_/php/
 image: php:latest
 
+variables:
+  GIT_STRATEGY: clone
+
 # Select what we should cache between builds
 cache:
   paths:
