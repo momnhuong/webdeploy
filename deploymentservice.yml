@@ -1,42 +1,42 @@
 apiVersion: apps/v1
-# ở đây phiên bản cũ hơn của kubernetes có dạng extensions/v1beta1
 kind: Deployment
-# kind là loại Deployment
 metadata:
   name: nginx-deployment
+  labels:
+    app: nginxap
 spec:
-  replicas: 2
-  # replica ở đây sẽ tạo ra 2 pods luôn luôn chạy, khi một số pods bị down hay chết hay bất kì lý do nào đó sẽ tự động tạo lại số lượng pods bằng 2
+  replicas: 1
+  #strategy: # change here
+    #type: RollingUpdate # strategy type is Recreate or RollingUpdate. Default i                                                                                        s Recreate
   selector:
     matchLabels:
-      app: nginx-deployment
+      app: nginxapp
   template:
     metadata:
       labels:
-        app: nginx-deployment
+        app: nginxapp
     spec:
       containers:
-      - name: nginx-deployment
-      # image của container docker
-        image: nginx:latest
+      - name: nginxserver
+        image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
         ports:
-        # port bên trong container
-        - containerPort: 8080
+        - containerPort: 3000
+
+
 ---
+
 apiVersion: v1
-# kind là loại Service
 kind: Service
 metadata:
-  name: nginx-svc
+  name: nginxapp-service
 spec:
-  ports:
-  # port bên ngoài của pods mà các pods có thể giao tiếp được với nhau
-  - port: 80
-  # port target với 8080 của deployment
-    targetPort: 8080
-    protocol: TCP
-    name: http
   selector:
-  # dựa theo app : nginx-deployment ở labels trên kia sẽ map với service này
-    app: nginx-deployment
-  type: ClusterIP
+    app: nginxapp
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 3000
+    nodePort: 31120
+
+
